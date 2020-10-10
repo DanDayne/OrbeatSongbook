@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name" translatable="false">GroupViewer</string>
+    <string name="action_toggle_alphabet_scroll">Toggle Alphabet Scroll</string>
+    <string name="action_browse">Browse</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="list_fragment_label">List Fragment</string>
+    <string name="file_fragment_label">File Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="to_list_view">To list view</string>
+    <string name="to_file_view">To file view</string>
+    <string name="new_setlist">New Setlist</string>
+
+    <string name="empty_folder">Empty Folder.</string>
+    <string name="there_is_nothing_here">There is nothing here!</string>
+    <string name="_4_mb" translatable="false">4 MB</string>
+    <string name="folder">(Folder)</string>
+    <string name="from_device">From Device</string>
+    <string name="select_pdf">select pdf</string>
+    <string name="load_pdf_to_app">Load File</string>
+    <string name="search">Search</string>
+    <string name="letterA" translatable="false">A</string>
+    <string name="settings">Settings</string>
+    <string name="slovak">Slovak</string>
+    <string name="english">English</string>
+    <string name="choose_language">Choose language</string>
+    <string name="language">Language</string>
+    <string name="select_action">Select action</string>
+    <string name="remove_from_app">Remove from app</string>
+    <string name="remove">Remove</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="connected">Connected</string>
+    <string name="network_not_found">Could not find network</string>
+    <string name="network_found">Network has been found</string>
+    <string name="hide_scrollbar">Hide Alphabet Filter</string>
+    <string name="show_scrollbar">Show Alphabet FIlter</string>
+    <string name="set_name">Set name</string>
+    <string name="create_setlist">Create  Setlist</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="setlists">Setlists</string>
+    <string name="rename">Rename</string>
+    <string name="setlist_name_taken">A Setlist with that name already exists</string>
+    <string name="file_name_taken">A File with that name already exists</string>
+    <string name="empty_string_error">Choose a valid name</string>
+    <string name="add_to_setlist">Add to Setlist</string>
+    <string name="remove_from_setlist">Remove from Setlist</string>
+    <string name="files">Files</string>
+    <string name="show">Show:</string>
+    <string name="all">All</string>
+    <string name="background_filler">Background filler</string>
+    <string name="non_existent_file">Tried to open non-existent file</string>
+    <string name="save_data_to_file">Save data to file</string>
+    <string name="load_data_from_file">Load data from file</string>
+    <string name="icon">icon</string>
+    <string name="pdf">PDF</string>
+</resources>
