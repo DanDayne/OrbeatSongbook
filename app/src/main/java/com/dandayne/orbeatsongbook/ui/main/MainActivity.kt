@@ -11,12 +11,11 @@ import androidx.databinding.DataBindingUtil
 import com.dandayne.orbeatsongbook.R
 import com.dandayne.orbeatsongbook.databinding.ActivityMainBinding
 import com.dandayne.orbeatsongbook.db.DatabaseManager
-import com.dandayne.orbeatsongbook.permissions.PermissionsDialogFragment
 import com.dandayne.orbeatsongbook.sync.MessageDisplay
 import com.dandayne.orbeatsongbook.sync.SyncManager
 import com.dandayne.orbeatsongbook.ui.navigation.NavigationController
 import com.dandayne.orbeatsongbook.ui.pdf.PdfDataHolder
-import com.dandayne.orbeatsongbook.utils.extensions.areAllPermissionsGranted
+import com.dandayne.permission.extensions.areAllPermissionsGranted
 import com.dandayne.orbeatsongbook.utils.extensions.restartActivity
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.standalone.KoinComponent
@@ -37,7 +36,8 @@ class MainActivity : AppCompatActivity(), MessageDisplay, KoinComponent, Navigat
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         dataBinding.viewModel = viewModel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !areAllPermissionsGranted())
-            PermissionsDialogFragment().show(supportFragmentManager, PermissionsDialogFragment.TAG)
+            com.dandayne.permission.ui.PermissionsDialogFragment()
+                .show(supportFragmentManager, com.dandayne.permission.ui.PermissionsDialogFragment.TAG)
         syncManager.messageDisplay = this
         syncManager.start()
         syncManager.fileNameToLaunch.observe(this) {
