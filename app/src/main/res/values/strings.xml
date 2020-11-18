@@ -25,14 +25,7 @@
     <string name="non_existent_file">Tried to open non-existent file</string>
     <string name="save_data_to_file">Save data to file</string>
     <string name="pdf">PDF</string>
-    <string name="all_files_access_title">All files access required.</string>
-    <string name="all_files_access_message">The application requires all files access to be enabled.</string>
-    <string name="go_to_settings">Go to settings</string>
-    <string name="permissions_required">Permissions required</string>
-    <string name="permissions_must_enable">The application requires multiple permissions, that must be enabled for the application to work properly. Start the granting process by pressing button down below.</string>
-    <string name="grant_permissions">Grant permissions</string>
     <string name="reload_files">Reload files</string>
-    <string name="permissions_not_granted">To use the application, check whether all permissions are enabled.</string>
     <string name="setlist_delete_warning">Setlist will be deleted</string>
     <string name="cancel">Cancel</string>
     <string name="no_setlists">No setlists available</string>
