@@ -3,13 +3,13 @@
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#0069c0</color>
     <color name="colorAccent">#01579B</color>
-    <color name ="white">#BABABA</color>
+    <color name ="lightGrey">#BABABA</color>
+    <color name="grey">#707070</color>
 
     <color name="textLight">#999</color>
     <color name="textInverse">#fff</color>
     <color name="text">#C8C8C8</color>
 
     <color name="nav_item">#FFFFFF</color>
-    <color name="light_grey">#C0C0C0</color>
     <color name="almost_white">#ededed</color>
 </resources>

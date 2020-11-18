@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dandayne.orbeatsongbook.ui.setlists.dialog.NewSetlistDialogViewModel" />
+
+        <variable
+            name="setlistName"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/medium"
+        android:minWidth="@dimen/dialogWidth">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_setlist"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+        <EditText
+            android:id="@+id/setlistNameEditTextParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/set_name"
+            android:hint="@string/set_name"
+            android:inputType="text"
+            errorId="@{viewModel.error}"
+            android:text="@={setlistName}"
+            android:layout_margin="@dimen/large"
+            >
+        </EditText>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:onClick="@{() -> viewModel.newSetlist(setlistName)}"
+            android:layout_gravity="end|bottom"/>
+    </LinearLayout>
+
+</layout>

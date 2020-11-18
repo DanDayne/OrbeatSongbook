@@ -2,10 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.example.groupviewer.main.MainViewModel" />
+            type="com.dandayne.orbeatsongbook.ui.main.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +14,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/navigation_fragment"
-                android:name="com.example.groupviewer.navigation.NavigationFragment"
+                android:name="com.dandayne.orbeatsongbook.ui.navigation.NavigationFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.dandayne.orbeatsongbook.ui.pdf.PdfViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/pdf_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/medium"
+            android:elevation="1dp"
+            android:textColor="@color/almost_white"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:background="@drawable/rectangle_outline"
+            android:backgroundTint="@color/grey"
+            android:padding="@dimen/small"
+            android:text="@string/no_file_selected"
+            android:maxLines="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdf_viewer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/background_filler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/large"
+                android:src="@drawable/ic_file_item"
+                app:tint="@color/almost_white"
+                tools:ignore="ContentDescription"
+                android:onClick="@{() -> viewModel.changeInfoVisibility()}"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/button_next"
+            android:layout_width="@dimen/navigation_button_size"
+            android:layout_height="@dimen/navigation_button_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_next"
+            tools:ignore="ContentDescription,UnusedAttribute"
+            android:onClick="@{() -> viewModel.nextFile()}"
+            app:tint="@color/grey"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/button_previous"
+            android:layout_width="@dimen/navigation_button_size"
+            android:layout_height="@dimen/navigation_button_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_previous"
+            tools:ignore="ContentDescription,UnusedAttribute"
+            android:onClick="@{() -> viewModel.previousFile()}"
+            app:tint="@color/grey"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

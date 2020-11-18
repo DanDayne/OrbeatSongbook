@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.groupviewer.navigation.NavigationViewModel">
+            type="com.dandayne.orbeatsongbook.ui.navigation.NavigationViewModel">
         </variable>
 
     </data>
