@@ -15,8 +15,8 @@ import com.dandayne.orbeatsongbook.sync.MessageDisplay
 import com.dandayne.orbeatsongbook.sync.SyncManager
 import com.dandayne.orbeatsongbook.ui.navigation.NavigationController
 import com.dandayne.orbeatsongbook.ui.pdf.PdfDataHolder
-import com.dandayne.permission.extensions.areAllPermissionsGranted
 import com.dandayne.orbeatsongbook.utils.extensions.restartActivity
+import com.dandayne.permission.ui.PermissionsDialog
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
@@ -35,9 +35,8 @@ class MainActivity : AppCompatActivity(), MessageDisplay, KoinComponent, Navigat
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         dataBinding.viewModel = viewModel
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !areAllPermissionsGranted())
-            com.dandayne.permission.ui.PermissionsDialogFragment()
-                .show(supportFragmentManager, com.dandayne.permission.ui.PermissionsDialogFragment.TAG)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            PermissionsDialog().show(supportFragmentManager, PermissionsDialog.TAG)
         syncManager.messageDisplay = this
         syncManager.start()
         syncManager.fileNameToLaunch.observe(this) {
