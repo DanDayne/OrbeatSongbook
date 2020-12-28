@@ -1,16 +1,14 @@
 package com.dandayne.orbeatsongbook.ui.setlists
 
 import android.content.DialogInterface
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +26,7 @@ import com.dandayne.orbeatsongbook.utils.RecyclerAdapterController
 import com.thesurix.gesturerecycler.GestureManager
 import kotlinx.android.synthetic.main.fragment_setlists.view.*
 
-class SetlistsFragment : NavHostFragment(), SetlistController, FilesController,
+class SetlistsFragment : Fragment(), SetlistController, FilesController,
     RecyclerAdapterController, DialogInterface.OnDismissListener {
     private val viewModel: SetlistsViewModel by viewModels()
     private lateinit var dataBinding: FragmentSetlistsBinding
@@ -44,7 +42,7 @@ class SetlistsFragment : NavHostFragment(), SetlistController, FilesController,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_setlists, container, true
         )
@@ -54,7 +52,6 @@ class SetlistsFragment : NavHostFragment(), SetlistController, FilesController,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         val setlistsRecycler: RecyclerView = view.findViewById(R.id.setlists_recycler_view)
         val setlistsLayoutManager = LinearLayoutManager(context)
@@ -110,9 +107,6 @@ class SetlistsFragment : NavHostFragment(), SetlistController, FilesController,
             requireActivity().runOnUiThread {
                 if (setlist != null) {
                     setlistContentRecycler.visibility = View.VISIBLE
-                    view.setlist_content_back_button.visibility = View.VISIBLE
-                    view.setlist_name_text_view.visibility = View.VISIBLE
-                    dataBinding.setlistName = setlist.setlist.setlistName
                     view.add_button.setOnClickListener {
                         viewModel.refresh()
                         AddMultipleFilesToSetlistDialogFragment.newInstance(
@@ -120,13 +114,9 @@ class SetlistsFragment : NavHostFragment(), SetlistController, FilesController,
                             setlist.setlist.setlistName
                         ).show(childFragmentManager, AddMultipleFilesToSetlistDialogFragment.TAG)
                     }
-
                     setlistsRecycler.visibility = View.GONE
                 } else {
                     setlistContentRecycler.visibility = View.GONE
-                    view.setlist_content_back_button.visibility = View.GONE
-                    view.setlist_name_text_view.visibility = View.GONE
-
 
                     setlistsRecycler.visibility = View.VISIBLE
                     view.add_button.setOnClickListener {
@@ -166,10 +156,5 @@ class SetlistsFragment : NavHostFragment(), SetlistController, FilesController,
 
     override fun onDismiss(p0: DialogInterface?) {
         viewModel.refresh()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }

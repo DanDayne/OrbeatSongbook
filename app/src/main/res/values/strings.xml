@@ -25,10 +25,12 @@
     <string name="non_existent_file">Tried to open non-existent file</string>
     <string name="save_data_to_file">Save data to file</string>
     <string name="pdf">PDF</string>
+    <string name="viewer">Viewer</string>
     <string name="reload_files">Reload files</string>
     <string name="setlist_delete_warning">Setlist will be deleted</string>
     <string name="cancel">Cancel</string>
     <string name="no_setlists">No setlists available</string>
     <string name="set_name">Set name</string>
     <string name="no_file_selected">No file selected</string>
+    <string name="settings">Settings</string>
 </resources>

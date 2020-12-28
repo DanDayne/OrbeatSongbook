@@ -1,10 +1,12 @@
 package com.dandayne.orbeatsongbook.ui.navigation
 
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,11 +15,16 @@ import androidx.viewpager2.widget.ViewPager2
 import com.dandayne.orbeatsongbook.R
 import com.dandayne.orbeatsongbook.databinding.FragmentNavigationBinding
 import com.dandayne.orbeatsongbook.ui.pdf.PdfDataHolder
+import com.dandayne.orbeatsongbook.ui.pdf.PdfFragment
+import com.dandayne.orbeatsongbook.ui.setlists.NavigationObserver
+import com.dandayne.orbeatsongbook.ui.setlists.SetlistsFragment
+import com.dandayne.orbeatsongbook.ui.settings.SettingsActivity
+import com.dandayne.orbeatsongbook.ui.settings.SettingsOpener
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 
-class NavigationFragment : Fragment(), NavigationController {
+class NavigationFragment : Fragment(), NavigationController, SettingsOpener {
 
     private val viewModel: NavigationViewModel by viewModels()
     private lateinit var dataBinding: FragmentNavigationBinding
@@ -31,6 +38,7 @@ class NavigationFragment : Fragment(), NavigationController {
     companion object {
         const val TAG = "navigationFragment"
         const val LAST_PAGE = "last_page"
+        private const val SETTINGS_CODE = 1234
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,23 +51,27 @@ class NavigationFragment : Fragment(), NavigationController {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_navigation, container, false
         )
         dataBinding.viewModel = viewModel
+        dataBinding.settingsOpener = this
         return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewPager = view.findViewById(R.id.pager)
+        viewPager = dataBinding.pager
         viewPager.adapter = NavigationPagerAdapter(requireActivity())
-        viewPager.offscreenPageLimit = 3
+        viewPager.offscreenPageLimit = NavigationPagerAdapter.tabs.size
 
-        tabLayout = view.findViewById(R.id.tab_layout)
+        tabLayout = dataBinding.tabLayout
         tabLayoutMediator = TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text =
-                context?.getString(NavigationPagerAdapter.getFragmentNameByPosition(position))
+            NavigationPagerAdapter.getTabByPosition(position).apply {
+                title?.let { tab.text = requireContext().getString(it) }
+                icon?.let { tab.icon = ContextCompat.getDrawable(requireContext(), it) }
+            }
+
         }
         tabLayoutMediator.attach()
 
@@ -67,13 +79,20 @@ class NavigationFragment : Fragment(), NavigationController {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 viewModel.currentPage = position
+                (requireActivity() as? NavigationObserver)?.apply {
+                    val setlistsFragmentPosition = NavigationPagerAdapter.getTabPositionByTag(
+                        SetlistsFragment::class.java.name
+                    )
+                    setIsOnSetlistFragment(position == setlistsFragmentPosition)
+                }
             }
         })
 
         pdfDataHolder.openedFile.observe(viewLifecycleOwner) {
             if (!it.hasBeenHandled) {
                 it.handle()
-                viewPager.currentItem = 2
+                viewPager.currentItem =
+                    NavigationPagerAdapter.getTabPositionByTag(PdfFragment::class.java.name)
             }
         }
         viewPager.isUserInputEnabled = false
@@ -92,10 +111,17 @@ class NavigationFragment : Fragment(), NavigationController {
 
     override fun onPause() {
         viewModel.currentPage?.let {
-            requireContext().getSharedPreferences(TAG, MODE_PRIVATE).edit(commit = true) {
+            requireContext().getSharedPreferences(TAG, MODE_PRIVATE).edit {
                 putInt(LAST_PAGE, it)
             }
             super.onPause()
         }
+    }
+
+    override fun openSettings() {
+        startActivityForResult(
+            Intent(requireContext(), SettingsActivity::class.java),
+            SETTINGS_CODE
+        )
     }
 }

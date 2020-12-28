@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.dandayne.orbeatsongbook.ui.main.MainViewModel" />
@@ -10,14 +12,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/navigation_fragment"
-                android:name="com.dandayne.orbeatsongbook.ui.navigation.NavigationFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/navigation_fragment"
+            android:name="com.dandayne.orbeatsongbook.ui.navigation.NavigationFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </layout>

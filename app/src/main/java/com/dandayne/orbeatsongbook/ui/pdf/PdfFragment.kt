@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,11 +11,10 @@ import androidx.lifecycle.Observer
 import com.dandayne.orbeatsongbook.R
 import com.dandayne.orbeatsongbook.databinding.FragmentPdfBinding
 import com.dandayne.orbeatsongbook.db.model.File
-import com.dandayne.orbeatsongbook.ui.navigation.NavigationController
-import com.dandayne.orbeatsongbook.utils.extensions.isUsingNightModeResources
+import com.dandayne.orbeatsongbook.utils.extensions.hideSystemUI
+import com.dandayne.orbeatsongbook.utils.extensions.isNightModeEnabled
+import com.dandayne.orbeatsongbook.utils.extensions.showSystemUI
 import kotlinx.android.synthetic.main.fragment_pdf.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class PdfFragment : Fragment() {
@@ -30,12 +28,10 @@ class PdfFragment : Fragment() {
     private val infoVisibilityObserver = Observer<Boolean> {
         if (it == true) {
             dataBinding.pdfName.visibility = View.VISIBLE
-            (requireActivity() as? NavigationController)?.toggleNavigationBar(true)
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            requireActivity().showSystemUI()
         } else {
             dataBinding.pdfName.visibility = View.GONE
-            (requireActivity() as? NavigationController)?.toggleNavigationBar(false)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            requireActivity().hideSystemUI()
         }
     }
 
@@ -51,7 +47,7 @@ class PdfFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_pdf, container, true)
         dataBinding.viewModel = viewModel
@@ -72,7 +68,8 @@ class PdfFragment : Fragment() {
         pdf_viewer.visibility = View.VISIBLE
         background_filler.visibility = View.GONE
         dataBinding.pdfName.text = file.fileName
-        pdf_viewer.fromUri(file.uri).nightMode(requireContext().isUsingNightModeResources())
+        pdf_viewer.fromUri(file.uri)
+            .nightMode(requireContext().isNightModeEnabled())
             .password(null)
             .defaultPage(0)
             .enableSwipe(true)
@@ -96,7 +93,6 @@ class PdfFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        GlobalScope.launch {  }
         viewModel.changeInfoVisibilityWithDelay()
     }
 }

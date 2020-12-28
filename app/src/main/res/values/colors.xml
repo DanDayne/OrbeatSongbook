@@ -12,4 +12,7 @@
 
     <color name="nav_item">#FFFFFF</color>
     <color name="almost_white">#ededed</color>
+
+    <color name="headerSecondary">@color/nav_item</color>
+    <color name="title">@color/grey</color>
 </resources>

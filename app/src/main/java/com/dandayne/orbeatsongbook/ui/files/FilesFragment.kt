@@ -31,7 +31,7 @@ class FilesFragment : Fragment(), FilesController, RecyclerAdapterController {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_files, container, true
         )

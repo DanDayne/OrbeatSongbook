@@ -17,7 +17,7 @@ class SetlistsDataHolder : AbstractRecyclerDataHolder<Setlist>() {
     private val _showingSetlistContent = MutableLiveData<SetlistWithFiles?>(null)
     val showingSetlistContent: LiveData<SetlistWithFiles?> = _showingSetlistContent
 
-    private val _showingProgressBar = MutableLiveData<Boolean>(false)
+    private val _showingProgressBar = MutableLiveData(false)
     val showingProgressBar: LiveData<Boolean> = _showingProgressBar
 
     fun start() {
@@ -42,7 +42,7 @@ class SetlistsDataHolder : AbstractRecyclerDataHolder<Setlist>() {
     }
 
     fun closeSetlist() {
-        GlobalScope.launch(Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.IO) {
             liveDataHelper.setOrPostValue(_showingSetlistContent, null)
         }
     }
