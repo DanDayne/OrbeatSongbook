@@ -17,7 +17,8 @@ fun Activity.hideSystemUI() {
         }
     } else {
         @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN)
+        window.decorView.systemUiVisibility =
+            (View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
     (this as? NavigationController)?.toggleNavigationBar(false)
