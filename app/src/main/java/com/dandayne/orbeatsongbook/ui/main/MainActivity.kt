@@ -17,6 +17,8 @@ import com.dandayne.orbeatsongbook.sync.MessageDisplay
 import com.dandayne.orbeatsongbook.ui.navigation.NavigationController
 import com.dandayne.orbeatsongbook.ui.setlists.NavigationObserver
 import com.dandayne.orbeatsongbook.ui.settings.SettingsActivity
+import com.dandayne.orbeatsongbook.utils.extensions.isNightModeEnabled
+import com.dandayne.orbeatsongbook.utils.extensions.setNightMode
 import com.dandayne.permission.ui.PermissionsDialog
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.standalone.KoinComponent
@@ -107,9 +109,7 @@ class MainActivity : AppCompatActivity(), MessageDisplay, KoinComponent, Navigat
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == SETTINGS_REQUEST_CODE &&
-            resultCode == Activity.RESULT_OK &&
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT
-        ) recreate() else super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == Activity.RESULT_OK)
+            recreate() else super.onActivityResult(requestCode, resultCode, data)
     }
 }

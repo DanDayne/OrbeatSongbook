@@ -51,6 +51,7 @@ class SettingsAdapter(private val items: List<SettingsItem>) :
                 executePendingBindings()
                 settingSwitch.apply {
                     isChecked = item.getValueBlock()
+                    switchStateDescription = if (isChecked) item.textOn else item.textOff
                     setOnCheckedChangeListener { _, checked ->
                         item.setValueBlock(checked)
                     }

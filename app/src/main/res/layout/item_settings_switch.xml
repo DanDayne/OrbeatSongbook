@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="item"
-            type="com.dandayne.orbeatsongbook.ui.settings.items.SettingsSwitch"
-            />
+            type="com.dandayne.orbeatsongbook.ui.settings.items.SettingsSwitch" />
+
+        <variable
+            name="switchStateDescription"
+            type="String" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -18,8 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium"
-        app:cardCornerRadius="@dimen/medium"
-        >
+        app:cardCornerRadius="@dimen/medium">
 
         <LinearLayout
             android:id="@+id/parent"
@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:orientation="horizontal"
-            android:padding="@dimen/medium"
-            >
+            android:padding="@dimen/medium">
 
             <LinearLayout
                 android:id="@+id/buttonParent"
@@ -36,33 +35,42 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{item.title}"
-                    tools:text="Show volume options"
-                    />
+                    style="@style/TextAppearance.Compat.Notification.Title"
+                    tools:text="Show volume options" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{item.subTitle}"
-                    tools:text="This option will show basic volume options menu."
-                    />
+                    tools:text="This option will show basic volume options menu." />
             </LinearLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingSwitch"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/medium"
-                android:layout_marginEnd="@dimen/medium"
-                />
+                android:orientation="vertical">
 
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/settingSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/medium"
+                    android:layout_marginEnd="@dimen/medium" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAlignment="gravity"
+                    android:text="@{switchStateDescription}" />
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

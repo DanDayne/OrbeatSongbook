@@ -18,9 +18,11 @@ import com.dandayne.orbeatsongbook.ui.setlists.SetlistsDataHolder
 import com.dandayne.orbeatsongbook.ui.settings.NightModeController
 import com.dandayne.orbeatsongbook.utils.LiveDataHelper
 import com.dandayne.orbeatsongbook.utils.extensions.isNightModeEnabled
+import com.dandayne.orbeatsongbook.utils.extensions.isNightModeForced
 import com.dandayne.orbeatsongbook.utils.extensions.saveNightModeSwitch
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.ext.android.startKoin
+import com.dandayne.orbeatsongbook.utils.extensions.setNightMode as setNightModeUtil
 import org.koin.dsl.module.module
 
 @ObsoleteCoroutinesApi
@@ -36,7 +38,11 @@ class App : Application(), NightModeController {
         single { SetlistsDataHolder() }
         single { applicationContext.resources }
         single { StorageManager() }
-        single { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ReactiveNetworkMonitor(applicationContext) else PeriodicalNetworkMonitor(applicationContext) }
+        single {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                ReactiveNetworkMonitor(applicationContext)
+            else PeriodicalNetworkMonitor(applicationContext)
+        }
         single { getSystemService(Context.ALARM_SERVICE) as AlarmManager }
         single("APPLICATION_CONTEXT") { applicationContext }
         single { (get("DATABASE") as AppDatabase).setlistDao() }
@@ -58,13 +64,12 @@ class App : Application(), NightModeController {
 
     override fun setNightMode(switch: Boolean) {
         saveNightModeSwitch(switch)
-        AppCompatDelegate.setDefaultNightMode(
-            if (switch) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
-        )
+        setNightModeUtil(switch)
     }
 
     override fun isNightModeEnabled() = (this as Context).isNightModeEnabled()
+
+    override fun isNightModeForced() = (this as Context).isNightModeForced()
 
     override fun resolveNightMode() {
         setNightMode(isNightModeEnabled())

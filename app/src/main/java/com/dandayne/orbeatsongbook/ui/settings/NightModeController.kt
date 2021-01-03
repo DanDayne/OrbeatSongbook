@@ -4,4 +4,5 @@ interface NightModeController {
     fun resolveNightMode()
     fun setNightMode(switch: Boolean)
     fun isNightModeEnabled(): Boolean
+    fun isNightModeForced(): Boolean
 }
