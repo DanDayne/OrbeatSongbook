@@ -32,8 +32,7 @@ fun Context.isSystemNightModeEnabled() =
 fun Context.isNightModeEnabled() =
     if (isNightModeForced()) true else isSystemNightModeEnabled()
 
-fun Context.saveNightModeSwitch(switch: Boolean) {
-    val mode = if (switch) MODE_NIGHT_YES else MODE_NIGHT_FOLLOW_SYSTEM
+fun Context.saveNightModeCode(mode: Int) {
     getSharedPreferences("Settings", Application.MODE_PRIVATE).edit(commit = true) {
         putInt(SettingsDarkModeSwitch.NIGHT_MODE, mode)
     }

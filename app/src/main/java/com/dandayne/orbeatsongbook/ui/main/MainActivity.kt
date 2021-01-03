@@ -17,8 +17,6 @@ import com.dandayne.orbeatsongbook.sync.MessageDisplay
 import com.dandayne.orbeatsongbook.ui.navigation.NavigationController
 import com.dandayne.orbeatsongbook.ui.setlists.NavigationObserver
 import com.dandayne.orbeatsongbook.ui.settings.SettingsActivity
-import com.dandayne.orbeatsongbook.utils.extensions.isNightModeEnabled
-import com.dandayne.orbeatsongbook.utils.extensions.setNightMode
 import com.dandayne.permission.ui.PermissionsDialog
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.standalone.KoinComponent

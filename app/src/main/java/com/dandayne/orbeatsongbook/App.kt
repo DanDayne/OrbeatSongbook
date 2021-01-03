@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.room.Room
 import com.dandayne.orbeatsongbook.db.AppDatabase
 import com.dandayne.orbeatsongbook.db.DatabaseManager
@@ -19,10 +21,9 @@ import com.dandayne.orbeatsongbook.ui.settings.NightModeController
 import com.dandayne.orbeatsongbook.utils.LiveDataHelper
 import com.dandayne.orbeatsongbook.utils.extensions.isNightModeEnabled
 import com.dandayne.orbeatsongbook.utils.extensions.isNightModeForced
-import com.dandayne.orbeatsongbook.utils.extensions.saveNightModeSwitch
+import com.dandayne.orbeatsongbook.utils.extensions.saveNightModeCode
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.ext.android.startKoin
-import com.dandayne.orbeatsongbook.utils.extensions.setNightMode as setNightModeUtil
 import org.koin.dsl.module.module
 
 @ObsoleteCoroutinesApi
@@ -63,8 +64,10 @@ class App : Application(), NightModeController {
     }
 
     override fun setNightMode(switch: Boolean) {
-        saveNightModeSwitch(switch)
-        setNightModeUtil(switch)
+        (if (switch) MODE_NIGHT_YES else MODE_NIGHT_FOLLOW_SYSTEM).let {
+            saveNightModeCode(it)
+            AppCompatDelegate.setDefaultNightMode(it)
+        }
     }
 
     override fun isNightModeEnabled() = (this as Context).isNightModeEnabled()
