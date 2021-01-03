@@ -37,4 +37,5 @@
     <string name="dark_mode_text">Enforce in-app dark mode</string>
     <string name="on">On</string>
     <string name="auto">Auto</string>
+    <string name="version">Version: %1$s</string>
 </resources>

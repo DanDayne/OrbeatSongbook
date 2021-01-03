@@ -27,12 +27,16 @@ class SettingsActivity : AppCompatActivity(), SettingsController {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         settingItems =
-            listOf<SettingsItem>(SettingsDarkModeSwitch(application as NightModeController))
+            listOf<SettingsItem>(SettingsDarkModeSwitch())
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.settings)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         dataBinding.viewModel = viewModel
         dataBinding.settingsController = this
+        dataBinding.versionName = getString(
+            R.string.version,
+            packageManager.getPackageInfo(packageName, 0).versionName
+        )
         val settingsRecycler: RecyclerView = dataBinding.settingsAdapter
         val setlistsLayoutManager = LinearLayoutManager(this)
         settingsRecycler.layoutManager = setlistsLayoutManager
